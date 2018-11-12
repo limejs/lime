@@ -17,6 +17,7 @@
     "debug": "^4.1.0",
     "handlebars": "^4.0.12",
     "koa": "^2.6.1",
+    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-views": "^6.1.4",
     "koa-views-render": "0.0.1",
