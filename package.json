@@ -13,12 +13,22 @@
   "keywords": [
     "lime"
   ],
+  "files": [
+    "app.js",
+    "lib",
+    "mvc",
+    "builtin"
+  ],
   "dependencies": {
     "debug": "^4.1.0",
     "handlebars": "^4.0.12",
     "koa": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-compress": "^3.0.0",
+    "koa-csrf": "^3.0.6",
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
+    "koa-session": "^5.10.0",
     "koa-views": "^6.1.4",
     "koa-views-render": "0.0.1",
     "mongoose": "^5.3.11"

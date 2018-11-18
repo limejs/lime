@@ -6,7 +6,11 @@ const _isSchemeProp = (prop) => {
     return [String, Number, Object, Date, Array].includes(prop)
 }
 
+let cache = {}
+
+// mongoose 模型（对应一个mongodb表/collection）
 const Model = function (schemeDefine, modelName) {
+    if (cache[modelName]) return cache[modelName]
     let props = {}
     Object.keys(schemeDefine).forEach(k => {
         if (_isSchemeProp(schemeDefine[k])) {
@@ -21,7 +25,9 @@ const Model = function (schemeDefine, modelName) {
         modelScheme.methods[m] = schemeDefine[m]
     })
     // 导出mongoose模型class
-    return mongoose.model(modelName, modelScheme)
+    let myModel = mongoose.model(modelName, modelScheme)
+    cache[modelName] = myModel
+    return myModel
 }
 
 module.exports = Model

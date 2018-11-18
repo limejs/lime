@@ -1,113 +1,92 @@
 # lime
 
-lime 是一个基于 Koa2 开发的 MVC 架构的小型 Web 开发框架，他致力于提供最简洁和最快速的开发体验。它的目标有2个: 一个是运行上的快、一个是开发人员的爽。
+lime(莱蒙) 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MVC 范式，致力于帮助前端开发工程师更规范地进行 Node 中间层的开发。
 
-它的理念是尽可能地让上层 Coding 变得精简，但又能无缝地直接衔接 Koa 和 npm 的现有生态；在灵活与标准之间，lime 会以最 `中庸` 的态度做出权衡，并不断面向用户体验和未来而演进。
+如果你是一名熟悉 JavaScript/Vue.js 或 Node.js 的前端工程师，你一定能立刻上手 lime 来开发 Node 层的 API 接口或 SSR(服务端渲染)；如果你曾经使用过 ASP.NET MVC 、Thinkjs、ThinkPHP 或 其他类 MVC的后端框架，相信你也一定会很快上手。
 
-## 用法
+## 应用场景
 
-首先初始化项目:
+* 具有完整的后端 MVC 分层的新闻站、企业站、博客站点
+* 只在 Node 层提供 API 或静态资源的 SPA单页应用；甚至支持 SSR
+* 只希望在 Node 层提供 Restful API 形式的接口或 API 代理
+
+## 理念
+
+* [开放] lime 希望尽可能地让上层 Coding 过程变得精简且规范，但又无缝衔接 Koa 和 npm 的现有生态和知识体系。除了框架所需的基本模式概念要求之外，lime 不会创造额外的概念，本质上 lime 是 Koa 之上很薄的一层，只希望能简化你使用 Koa 的流程，但不屏蔽 Koa 的生态体系。在灵活与范式之间，lime 会以最 `中庸` 的态度做出权衡，并不断面向用户体验和未来而演进。
+
+* [灵活] lime 内核虽然采用了 MVC，但你在上层可以轻易 `使用` 或 `不使用` 其中任何一个部分，从而适应你目前开发团队的工作模式。
+
+* [激进] lime 会时刻保持跟进 Node.js LTS 版本最新特性 以提高性能和开发体验。 如果您发现 lime 哪里使用了过时的语法或技术，请及时提出 issue 帮助 lime 改正。
+
+## 环境要求
+
+* 最低: Node.js@8.0+ 推荐: Node.js@latest
+* 最低: npm@5.6+ 推荐: npm@latest
+
+## 快速开始
+
+* lime 提供了一个官方 command line 工具，首先需要安装 lime-cli
 
 ```bash
 npm i -g lime-cli
 ```
 
-接下来只需用 Node 执行站点目录下的 entry.js，则会在本地启动一个 HTTP 服务器，监听默认的 3000 端口
+* 初始化一个基于标准模板的项目。按照命令行提示来选择 standard 类型的模板，并输入相应的项目配置信息
 
 ```bash
-node ./entry.js
-或
-npm start
+lime init lime-project
 ```
 
-如果希望改变端口，可以通过修改PORT环境变量的方式:
+* 进入项目目录，安装依赖
 
 ```bash
-PORT=8080 node ./entry.js
-或
-PORT=8080 npm start
+cd lime-project
+npm install
 ```
 
-如果你有自己的 Web Server, 则可以直接引用 entry.js, 我们已经导出了一个基本的 http handler 处理器. 示例用法:
+* 以开发模式启动项目
 
-```js
-// your server code
-const http = require('http')
-const app = require('./yoursite/entry.js')
-http.createServer(app).listen(8080)
+```bash
+npm run dev
 ```
 
-## 架构说明
+开发模式 lime 会使用一个 `随机` 端口启动一个本地的 http server，如果顺利的话，你会看到
 
-基于lime之上，我们有官方的站点开发套件来提升开发体验，如:
-
-* lime-cli 一个使用lime框架进行web开发的配套命令行工具
-
-* lime-cms 一个底层基于lime的CMS内容管理系统。用于快速开发企业站、新闻站等内容站点；内置了基本的内容管理能力和丰富的插件
-
-* lime-tick 一个配合前端SPA框架tick的前后端分离的SSR同构项目框架
-
-## 目录结构说明
-
-```js
-config 站点配置
-core lime内核(后续会独立为npm包)
-src 站点业务逻辑
-    |- controller 控制器
-    |- model 模型
-    |- view 视图
-entry.js 站点主入口，可使用 node entry.js 启动站点
+```bash
+Congratulations! LIME is listening at http://127.0.0.1:64493
 ```
 
-就这么多文件，是不是感到 so easy. 已经想跃跃欲试了?
+That's all.
 
-## 配置
+## 文档
 
-lime 要求必须在站点根目录下放置 entry.js 和 config目录，config目录下目前有3个配置文件。分别负责 持久化(存储层) store.js、路由 router.js、站点基础信息 site.js 的配置。
+尽管你可以轻易地查看 lime 源码来解决所有问题，但 lime 认为文档对于开发效率依然非常重要。
 
-### 站点基本信息配置
+为此， lime 提供有相对比较详细的[开发文档](./doc/home.md)，希望助你一臂之力。
 
-`config/site.js`
-
-### 路由配置
-
-`config/router.js`
-
-### 数据库配置
-
-`config/store.js`
-
-## 环境变量说明
-
-* DEBUG=lime:* 打开lime框架内核的调试日志；你也可以选择性地打开 lime:store, lime:controller, lime:router 等模块的调试日志
-* NODE_ENV: 可选 development 或 production
-* PORT: node http server 监听的端口号
-
-## 视图支持
-
-默认支持 handlebars 模板引擎，可支持在 config/site.js 中配置所有被 [consolidate](https://github.com/tj/consolidate.js/) 所支持的模板引擎
-
-## 内置的能力
-
-### JWT支持
-
-### 缓存会话支持
+建议你花费 30 分钟，依次看完 [快速开始](./doc/start.md)、[配置](./doc/config.md)、[lime-cli](./doc/lime-cli.md)、[控制器](./doc/controller.md)，就可以开始阅读 [开发一个简单的新闻站]，仿照这个实例便完全可以开发出一个功能完备的站点了，Good Luck!
 
 ## 成功案例
 
-* gatebe 全球智能投顾量化交易网站
+* [gatebe](gatebe.com) 全球智能投顾量化交易网站
+* [青檬前端](limefe.com) 一个小而美的前端小圈子
+* [邹平手机卡网](zpsjk.com) 邹平手机卡专业卖场
+* [sheldon的博客](blog.cuiyongjian.com) sheldon的个人博客
+* [limecms](limecms.limefe.com) 一个基于 lime 框架的小而美的通用 cms 建站系统
+* [limelog](limelog.limefe.com) 一个基于 lime 框架的小而美的通用博客系统
+
+## TODO
+
+* [ ] safe模块
+* [ ] 单元测试
+* [ ] 官方示例项目
+* [ ] doc 文档
+* [ ] travis CI
 
 ## 贡献
 
-* Fork 本仓库
-* 克隆你 fork 的仓库到本地
-* 在本地 lime 框架目录的同级使用 lime-cli 创建一个 demo 项目
-* 在 lime 框架目录中创建一个 feature 或 bugfix 分支
-* 在 demo 项目中执行 `npm link ../lime` 从而将本地的 lime 作为demo项目的软链依赖
-* 努力在 lime 框架项目中添加你的代码，并在 demo 项目中进行测试
-* 确保你的代码已经经过完整的单元测试
-* 发起 pull request，与官方讨论合并
+请按照 [CONTRIBUTING](./CONTRIBUTING.md) 指南进行贡献
 
 ## License
 
-MIT License
+[MIT](./LICENSE) License
