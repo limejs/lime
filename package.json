@@ -20,6 +20,7 @@
     "builtin"
   ],
   "dependencies": {
+    "@koa/cors": "^2.2.2",
     "debug": "^4.1.0",
     "handlebars": "^4.0.12",
     "koa": "^2.6.1",
