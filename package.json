@@ -1,5 +1,5 @@
 {
-  "name": "lime",
+  "name": "@lime/core",
   "version": "0.0.1",
   "description": "lime framework",
   "main": "app.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://git.code.oa.com/yongjiancui/lime"
+    "url": "https://github.com/limefe/lime.git"
   },
   "keywords": [
     "lime"
