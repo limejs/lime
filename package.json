@@ -1,6 +1,6 @@
 {
   "name": "limejs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "lime framework",
   "main": "app.js",
   "scripts": {
