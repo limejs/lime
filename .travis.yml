@@ -5,6 +5,6 @@ os: linux
 cache:
   npm: true
   yarn: true
-branched:
+branches:
   only:
-  - master
+    - master
