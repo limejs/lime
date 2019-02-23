@@ -1,6 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/@limejs/core.svg?style=flat)](https://www.npmjs.com/package/@limejs/core) [![downloads](https://img.shields.io/npm/dt/@limejs/core.svg)](https://www.npmjs.com/package/@limejs/core) [![Build Status](https://travis-ci.com/limejs/lime.svg?branch=master)](https://travis-ci.com/limejs/lime)
 
-
 # LIME
 
 lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MVC 范式，致力于提供简单易用的 Web 应用开发体验。
