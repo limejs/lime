@@ -1,5 +1,7 @@
-module.exports = {
+const HomeController = {
   async index(ctx, next) {
-    ctx.body = '123'
+    ctx.body = 'hello lime!'
   }
 }
+
+module.exports = HomeController

@@ -4,7 +4,7 @@
   "description": "lime framework",
   "main": "index.js",
   "scripts": {
-    "start": "DEBUG=lime:* nodemon ./example/app.js",
+    "start": "nodemon ./example/app.js",
     "debug": "DEBUG=lime:* nodemon --inspect-brk=9229 ./example/app.js ",
     "test": "mocha --require @babel/register --require @babel/polyfill"
   },
