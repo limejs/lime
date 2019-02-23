@@ -1,10 +1,10 @@
 const Koa = require('koa')
 const initPaths = require('./lib/paths')
-const initStore = require('./lib/store')
-const initGlobal = require('./lib/global')
+const initStore = require('./lib/old/store')
+const initGlobal = require('./lib/init-global')
 const views = require('koa-views')
 const router = require('./lib/router')
-const plugin = require('./lib/plugin')
+const plugin = require('./lib/init-plugin')
 
 // 站点根目录变量
 let siteRootDir = process.cwd()
