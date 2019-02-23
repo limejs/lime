@@ -100,6 +100,8 @@ hello lime! # 看到它 说明已经运行成功
 * 前后端分离的非 SSR 的 Vue.js 样板 [适合内网管理端】
 * API 项目样板 [适合开发REST API项目]
 
+我们正在加快开发 [Lime-cli](https://github.com/limefe/lime-cli) 脚手架工具，以提高 LIME 样板的创建效率和开发体验。敬请期待！
+
 ## Convention
 
 LIME 是 `约定大于配置` 的，所以 LIME 内部有一些惯例(约定)，我们在这里做简要说明。
