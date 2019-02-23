@@ -84,7 +84,7 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
   app.listen()
 ```
 
-控制器代码中的 `index` 函数叫做控制器的 `action`，它所传入的 ctx 和 next 参数 
+控制器代码中的 `index` 函数叫做控制器的 `action`，它本质上是一个完全意义上的 Koa 中间件函数，该函数所传入的 ctx 和 next 参数分别表示 Koa 的 ctx 上下文对象以及下一个中间件函数。更多细节请参考 controller 文档。
 
 如果一切顺利，此时打开浏览器访问 <http://localhost:3000> 便可以看到
 
