@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon ./example/app.js",
     "debug": "DEBUG=lime:* nodemon --inspect-brk=9229 ./example/app.js ",
-    "test": "mocha --require @babel/register --require @babel/polyfill"
+    "test": "mocha --require @babel/register --require @babel/polyfill test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -37,5 +37,12 @@
     "mongoose": "^5.3.11"
   },
   "author": "sheldoncui <websheldoncui@gmail.com> (https://www.cuiyongjian.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/register": "^7.0.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.1"
+  }
 }
