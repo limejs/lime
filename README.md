@@ -324,7 +324,11 @@ http.createServer(app.callback()).listen(8080)
     npm run test
     ```
 
-8. publish
+8. pull request
+
+    发起 pull request 与官方讨论合并
+
+9. publish
 
     LIME 通过发布 npm 包的方式提供给用户使用，包名为 `@limejs/core`。所有官方插件放置在 `@limejs` 命名空间下。发布 npm 时仅发布运行时代码，包括:
 
@@ -342,17 +346,20 @@ http.createServer(app.callback()).listen(8080)
 
 ## CHANGELOG
 
-* [2019-02-24]
-  - 去掉兜底 200 status 的中间件，改成返回 404 错误码; 以免产生误解
+* 0.0.5 [2019-02-24]
+  * 去掉兜底 200 status 的中间件，改成返回 404 错误码; 以免产生误解
 
-* [2019-02-23]
-  - 重构代码，梳理初始化逻辑，lime 核心改为 class 方式调用
-  - 增加 `example` 目录方便核心开发和贡献
-  - 增加 vscode debug 脚本命令
-  - 优化框架路径path的处理: 改为默认使用 cwd 工作目录，可通过 Lime 构造函数修改默认目录
-  - 暴露了 app.config app.options 属性，分别用于获取站点配置、构造选项
-  - 优化框架异常提示，提升用户使用体验
-  - 增加一个 global.logger 函数，用于打日志
+* 0.0.4 [2019-02-23]
+  * 重构代码，梳理初始化逻辑，lime 核心改为 class 方式调用
+  * 增加 `example` 目录方便核心开发和贡献
+  * 增加 vscode debug 脚本命令
+  * 优化框架路径path的处理: 改为默认使用 cwd 工作目录，可通过 Lime 构造函数修改默认目录
+  * 暴露了 app.config app.options 属性，分别用于获取站点配置、构造选项
+  * 优化框架异常提示，提升用户使用体验
+  * 增加一个 global.logger 函数，用于打日志
+
+* 0.0.1 [2018-11-30]
+  *first blood
 
 ## License
 

@@ -1,10 +1,52 @@
 # 贡献指南
 
-* Fork 本仓库
-* 克隆你 fork 的仓库到本地
-* 在本地 lime 框架目录的同级使用 lime-cli 创建一个 demo 项目
-* 在 lime 框架目录中创建一个 feature 或 bugfix 分支
-* 在 demo 项目中执行 `npm link ../lime` 从而将本地的 lime 作为demo项目的软链依赖
-* 努力在 lime 框架项目中添加你的代码，并在 demo 项目中进行测试
-* 确保你的代码已经经过完整的单元测试
-* 发起 pull request，与官方讨论合并
+1. Fork 本仓库到你的 github 账户
+
+2. 克隆你 Fork 的仓库到本地
+
+3. 在本地项目中新建一个 feature 或 bugfix 分支
+
+4. 安装 LIME 内核的依赖
+
+    ```bash
+    cd lime
+    npm install
+    ```
+
+5. 启动示例项目
+
+    ```bash
+    npm start
+    ```
+
+    修改框架核心代码，示例项目会自动监测代码保存并重启
+
+6. vscode debug:
+
+    遇到难以排查的问题，可以通过 vscode 的 debug 功能进行调试。其底层会调用 `npm run debug 命令启动 Node.js 调试服务器
+
+7. unit test
+
+    LIME 通过编写严格的单元测试保证框架质量，请保证修改的框架代码都编写并且通过了单元测试。LIME 在 github 使用 `travis-ci` 进行持续集成
+
+    ```bash
+    npm run test
+    ```
+
+8. merge request
+
+9. publish
+
+    LIME 通过发布 npm 包的方式提供给用户使用，包名为 `@limejs/core`。所有官方插件放置在 `@limejs` 命名空间下。发布 npm 时仅发布运行时代码，包括:
+
+    ```js
+    "files": [
+      "index.js",
+      "lib",
+      "mvc",
+      "example",
+      "doc"
+    ]
+    ```
+
+    其中 doc 和 example 是为了方便用户在本地查看或调试框架代码。
