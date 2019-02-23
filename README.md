@@ -1,4 +1,4 @@
-[![npm version](https://img.shields.io/npm/v/@limejs/core.svg?style=flat)](https://www.npmjs.com/package/@limejs/core) [![downloads](https://img.shields.io/npm/dt/@limejs/core.svg)](https://www.npmjs.com/package/@limejs/core)
+[![npm version](https://img.shields.io/npm/v/@limejs/core.svg?style=flat)](https://www.npmjs.com/package/@limejs/core) [![downloads](https://img.shields.io/npm/dt/@limejs/core.svg)](https://www.npmjs.com/package/@limejs/core) [![Build Status](https://travis-ci.com/limejs/lime.svg?branch=master)](https://travis-ci.com/limejs/lime)
 
 
 # LIME
