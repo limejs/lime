@@ -1,4 +1,7 @@
-# 贡献指南
+
+# CONTRIBUTE 指南
+
+## 工作流程
 
 1. Fork 本仓库到你的 github 账户
 
@@ -33,7 +36,9 @@
     npm run test
     ```
 
-8. merge request
+8. pull request
+
+    发起 pull request 与官方讨论合并
 
 9. publish
 
@@ -49,4 +54,4 @@
     ]
     ```
 
-    其中 doc 和 example 是为了方便用户在本地查看或调试框架代码。
+    其中 doc 和 example 是为了方便用户在本地查看或调试框架代码

@@ -99,7 +99,7 @@ hello lime! # 看到它 说明已经运行成功
 尽管创建一个基于 LIME 框架的项目如此简单，但事实上在真实项目开发时你无须自己手工编写项目样板。LIME 官方提供了一坨开箱即用的项目样板供您享用。无论是开发 Rest API 项目，还是基于 Vue.js 的前后端分离项目，LIME 都有一套完备且易用的样板。目前有以下这些样板项目:
 
 * SSR 服务端渲染的 Vue.js 样板 [适合面向消费者、对性能和SEO有一定要求的站点]
-* 前后端分离的非 SSR 的 Vue.js 样板 [适合内网管理端】
+* 前后端分离的非 SSR 的 Vue.js 样板 [适合内网管理端]
 * API 项目样板 [适合开发REST API项目]
 
 我们正在加快开发 [Lime-cli](https://github.com/limefe/lime-cli) 脚手架工具，以提高 LIME 样板的创建效率和开发体验。敬请期待！
@@ -135,7 +135,7 @@ const app = new Lime({
 
 * 控制器的物理文件名就是 controller 的名字
 
-假如我们要创建一个 `新闻` 的控制器 `news`，并在控制器中提供一个获取 `新闻列表` 的 action 函数。那么，我们应该创建一个 `mvc/controller/news.js` 的文件，并在 `news.js` 中这样编写一个控制器对象:
+假如我们要创建一个 `新闻` 的控制器 `news`，并在控制器中提供一个获取 `新闻列表` 的 `list` 函数。那么，我们应该创建一个 `mvc/controller/news.js` 的文件，并在 `news.js` 中这样编写一个控制器对象:
 
 ```js
 const NewsController = {
@@ -154,9 +154,11 @@ const NewsController = {
 module.exports = NewsController
 ```
 
+这样，`news` 就是控制器的名字，`list` 就是 action 的名字。在路由中，可以通过 `news@list` 映射到这个新闻列表函数。
+
 * 路由
 
-路由的约定是: `路由行为用@符号来分割controller和action`
+路由的约定是: `路由行为用@符号来分割 controller 和 action `
 
 举个栗子: 我们希望客户端发送的 `http://domain.com/news` 请求可以返回上面的 `新闻列表`，也就是说要把 `/news` 路径的 `get` 请求交给 `news controller` 的 `list action` 来处理。那么我们应该这样编写路由:
 
@@ -165,6 +167,8 @@ module.exports = (router) => {
   router.get('/', 'news@list')
 }
 ```
+
+这里 `router` 对象的所有 API 都可以参考 `koa-router` 来使用。
 
 ## Config
 
@@ -274,12 +278,12 @@ Lime 除了核心类和实例方法之外，为了方便用户可以随时随地
 ### 环境变量说明
 
 * DEBUG=lime:* 打开lime框架内核的调试日志；你也可以选择性地打开 lime:store, lime:controller, lime:router 等模块的调试日志
-* PORT: node http server 监听的端口号
-* HOST: node http server 监听的 host 地址
+* PORT: http server 监听的端口号
+* HOST: http server 监听的 host 地址
 
 ### 集成到已有的服务
 
-除了前文讲到的通过 `app.listen` 来启动 LIME 服务，LIME 也可以单纯作为一个 http 处理器来用。这适用于把 LIME 集成到已有的 Node.js http 服务中(如 [tsw](https://github.com/Tencent/TSW))。
+除了前文讲到的通过 `app.listen` 来启动 LIME 服务，LIME 也可以单纯作为一个 http 处理器来用。这适用于把 LIME 集成到已有的 Node.js http 服务中(如腾讯公司的 [tsw](https://github.com/Tencent/TSW))。
 
 集成方式非常简单，只需把 `app.callback()` 的返回值作为 http 请求的 handler 处理器即可。示例:
 
@@ -293,66 +297,20 @@ http.createServer(app.callback()).listen(8080)
 
 ## CONTRIBUTE
 
-1. Fork 本仓库到你的 github 账户
-
-2. 克隆你 Fork 的仓库到本地
-
-3. 在本地项目中新建一个 feature 或 bugfix 分支
-
-4. 安装 LIME 内核的依赖
-
-    ```bash
-    cd lime
-    npm install
-    ```
-
-5. 启动示例项目
-
-    ```bash
-    npm start
-    ```
-
-    修改框架核心代码，示例项目会自动监测代码保存并重启
-
-6. vscode debug:
-
-    遇到难以排查的问题，可以通过 vscode 的 debug 功能进行调试。其底层会调用 `npm run debug 命令启动 Node.js 调试服务器
-
-7. unit test
-
-    LIME 通过编写严格的单元测试保证框架质量，请保证修改的框架代码都编写并且通过了单元测试。LIME 在 github 使用 `travis-ci` 进行持续集成
-
-    ```bash
-    npm run test
-    ```
-
-8. pull request
-
-    发起 pull request 与官方讨论合并
-
-9. publish
-
-    LIME 通过发布 npm 包的方式提供给用户使用，包名为 `@limejs/core`。所有官方插件放置在 `@limejs` 命名空间下。发布 npm 时仅发布运行时代码，包括:
-
-    ```js
-    "files": [
-      "index.js",
-      "lib",
-      "mvc",
-      "example",
-      "doc"
-    ]
-    ```
-
-    其中 doc 和 example 是为了方便用户在本地查看或调试框架代码。
+欢迎帮助 LIME 进化和修复 issue，您可遵循 [CONTRIBUTE](./CONTRIBUTING) 规范来参与开发。
 
 ## CHANGELOG
 
-* 0.0.5 [2019-02-24]
-  * 去掉兜底 200 status 的中间件，改成返回 404 错误码; 以免产生误解
+* `release v0.1.0` [2019-02-25]
+  * 由于 0.0.4 发生大变更，因此修改 minor 版本号，发布 npm
+  * 目前先不更改大版本号，继续保持优化，等完成单元测试后再发布 v1.0，以真正支持线上生产环境使用。
 
-* 0.0.4 [2019-02-23]
-  * 重构代码，梳理初始化逻辑，lime 核心改为 class 方式调用
+* `release v0.0.5` [2019-02-24]
+  * 去掉兜底 200 status 的中间件，改成返回 404 错误码; 以免产生误解
+  * add yarn support
+
+* `release v0.0.4` [2019-02-23]
+  * **break change** 重构代码，梳理初始化逻辑，lime 核心改为 class 方式调用. 
   * 增加 `example` 目录方便核心开发和贡献
   * 增加 vscode debug 脚本命令
   * 优化框架路径path的处理: 改为默认使用 cwd 工作目录，可通过 Lime 构造函数修改默认目录
@@ -360,8 +318,24 @@ http.createServer(app.callback()).listen(8080)
   * 优化框架异常提示，提升用户使用体验
   * 增加一个 global.logger 函数，用于打日志
 
-* 0.0.1 [2018-11-30]
-  *first blood
+* `realease v0.0.3` [2019-01-10]
+  * 增加内核 plugin、router 模块的报错日志
+
+* `realease v0.0.2` [2019-01-07]
+  * 修改包名为 @limejs/core
+
+* `release v0.0.1` [2018-01-02]
+  * 增加 cors 内置中间件
+  * 增加 csrf 内置中间件
+  * 发布 npm
+
+* `beta` [2018-11-12]
+  * 增加 plugin 机制
+
+* `beta` [2018-11-07]
+  * first blood
+  * add .gitignore
+  * add .editorconfig
 
 ## License
 
