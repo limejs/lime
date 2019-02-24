@@ -297,7 +297,7 @@ http.createServer(app.callback()).listen(8080)
 
 ## CONTRIBUTE
 
-欢迎帮助 LIME 进化和修复 issue，您可遵循 [CONTRIBUTE](./CONTRIBUTING) 规范来参与开发。
+欢迎帮助 LIME 进化和修复 issue，您可遵循 [CONTRIBUTE](./CONTRIBUTE.md) 规范来参与开发。
 
 ## CHANGELOG
 
