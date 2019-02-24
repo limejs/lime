@@ -302,7 +302,7 @@ http.createServer(app.callback()).listen(8080)
 ## CHANGELOG
 
 * `release v0.1.0` [2019-02-25]
-  * 由于 0.0.4 发生大变更，因此修改 minor 版本号，发布 npm
+  * 由于 0.0.4 发生不少变更(甚至是 break change)，因此暂时增加 npm minor 版本号
   * 目前先不更改大版本号，继续保持优化，等完成单元测试后再发布 v1.0，以真正支持线上生产环境使用。
 
 * `release v0.0.5` [2019-02-24]
