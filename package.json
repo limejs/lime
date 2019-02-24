@@ -19,7 +19,8 @@
     "index.js",
     "lib",
     "mvc",
-    "builtin"
+    "doc",
+    "example"
   ],
   "dependencies": {
     "@koa/cors": "^2.2.2",
