@@ -299,6 +299,10 @@ http.createServer(app.callback()).listen(8080)
 
 欢迎帮助 LIME 进化和修复 issue，您可遵循 [CONTRIBUTE](./CONTRIBUTE.md) 规范来参与开发。
 
+这是我们的 TODO 列表:
+
+* 参考 https://github.com/vuejs/vue-cli/blob/v2/lib/logger.js 实现logger
+
 ## CHANGELOG
 
 * `release v0.1.0` [2019-02-25]
