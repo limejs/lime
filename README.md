@@ -305,6 +305,9 @@ http.createServer(app.callback()).listen(8080)
 
 ## CHANGELOG
 
+* `release v0.1.1` [2019-02-25]
+  * fix: 新增 Lime 的 listen 方法返回 server 对象
+
 * `release v0.1.0` [2019-02-25]
   * 由于 0.0.4 发生不少变更(甚至是 break change)，因此暂时增加 npm minor 版本号
   * 目前先不更改大版本号，继续保持优化，等完成单元测试后再发布 v1.0，以真正支持线上生产环境使用。
