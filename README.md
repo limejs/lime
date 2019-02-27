@@ -22,10 +22,6 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
 
   对于服务器端而言，升级运行环境的成本要比客户端小的多。也正因如此，lime.js 会毫不客气的废弃对老版本 Node.js 的支持。lime 会用面向未来的态度随时进化
 
-## Case
-
-* [波动星球](https://boodo.qq.com)
-* [Gatebe](https://gatebe.com)
 
 ## Guide
 
