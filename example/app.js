@@ -6,4 +6,10 @@ const app = new Lime({
   root: __dirname
 })
 
-app.listen()
+async function start() {
+  const server = await app.listen()
+  logger.info('server.address', server.address())
+}
+
+
+start()

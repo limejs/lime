@@ -301,6 +301,10 @@ http.createServer(app.callback()).listen(8080)
 
 ## CHANGELOG
 
+* `release v0.1.5` [2019-03-05]
+  * fix: 修复了 await app.listen 不合理的问题
+  * opt: 优化了 Lime 初始化过程的日志显示，避免用户编写插件时无法定位到问题
+
 * `release v0.1.1` [2019-02-25]
   * fix: 新增 Lime 的 listen 方法返回 server 对象
 
