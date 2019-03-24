@@ -51,7 +51,8 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
 
   # 此时 目录结构如下所示
   |-config # 站点配置，本示例不涉及
-  |-mvc
+  |-plugins # 站点插件，本示例不涉及
+  |-src
     |-controller
       |-home.js # 一个叫做 Home首页 的 控制器
     |-view
@@ -94,11 +95,12 @@ hello lime! # 看到它 说明已经运行成功
 
 尽管创建一个基于 LIME 框架的项目如此简单，但事实上在真实项目开发时你无须自己手工编写项目样板。LIME 官方提供了一坨开箱即用的项目样板供您享用。无论是开发 Rest API 项目，还是基于 Vue.js 的前后端分离项目，LIME 都有一套完备且易用的样板。目前有以下这些样板项目:
 
-* SSR 服务端渲染的 Vue.js 样板 [适合面向消费者、对性能和SEO有一定要求的站点]
-* 前后端分离的非 SSR 的 Vue.js 样板 [适合内网管理端]
-* API 项目样板 [适合开发REST API项目]
+* [Standard](https://github.com/limejs/lime-template-standard) 这是传统的 MVC 开发模式的项目样板，包含完整的MVC模块，服务端通过模板引擎来渲染视图。`[立刻启动一个传统MVC模式的开发](https://github.com/limejs/lime-template-standard)`
+* [SPA](https://github.com/limejs/lime-template-spa) 基于 Lime+Vue 的前后端分离的项目样板，兼顾单页应用运行和API开发。通过 lime 框架作为中间层来托管 Vue 资源文件，并在 limejs 中通过 webpack-dev-middleware 等插件完成Vue的热加载和热替换。`[立刻启动一个用 Node.js 作为中间层的SPA项目](https://github.com/limejs/lime-template-spa)`
+* [SSR](https://github.com/limejs/lime-template-ssr) Lime+VueSSR 服务端同构渲染的项目样板，适合面向消费者、对首屏加载性能和SEO有一定要求的站点；同样实现了热加载热替换、异常处理、cookie处理、api开发等。`[立刻启动一个用 Node.js 作为中间层的同构VueSSR项目](https://github.com/limejs/lime-template-spa)`
+* [API](https://github.com/limejs/lime-template-ssr) API 项目样板，去除了 model层、view层，增加了services层，适合开发REST API项目。 
 
-我们正在加快开发 [Lime-cli](https://github.com/limefe/lime-cli) 脚手架工具，以提高 LIME 样板的创建效率和开发体验。敬请期待！
+以上项目样板，除了 Controller 模块是必选的，Model 和 View 层都不是必须的，因此模型和视图是在通过 [lime-cli](https://github.com/limejs/lime-cli) 初始化时进行交互选择。
 
 ## Convention
 
@@ -109,13 +111,13 @@ LIME 是 `约定大于配置` 的，所以 LIME 内部有一些惯例(约定)，
 ```js
 |-- config
   |-- site.js 站点配置文件
-|-plugin
+|-plugins
   |- ua.js 一个插件
-|-- mvc
+|-- src
   |-- router.js 路由
-  |-- controller 控制器
-  |-- model 模型
-  |-- view 视图
+  |-- controllers 控制器
+  |-- models 模型
+  |-- views 视图
 |-- app.js 站点启动入口
 |-- package.json
 ```
@@ -166,37 +168,65 @@ module.exports = (router) => {
 
 这里 `router` 对象的所有 API 都可以参考 `koa-router` 来使用。
 
-## Config
+## Config 站点配置
 
-config/site.js 是 LIME 的框架基础配置，可配置的参数有:
+config目录中存放 LIME 的框架基础配置，其中有四个配置文件，分别影响不同环境的配置:
+
+```js
+common.js 公共配置，即各个环境都会使用的配置
+dev.js 开发环境配置
+test.js 测试环境配置
+prod.js 生产环境配置
+```
+
+配置的覆盖规则是这样的: common配置是最底层的配置，如果特定环境里面指定了相同的配置项导致冲突，则优先使用 环境配置文件 里所指定的配置。
+
+可配置的参数字段有:
 
 ```js
 module.exports = {
-  port: 3001, // 监听端口
-  host: '127.0.0.1', // 监听地址
-  cookie: [], // cookie加密串
-  session: {
-    open: false, // 是否启用session
-    key: '' // 启用 session 后的session cookie名
-  },
-  cors: {} // 这是 LIME 内置插件 cors 的配置，配置规则参考 koa-cors
+  port: process.env.PORT || 3000, // 监听端口。你可以根据自己实际业务逻辑进行修改
+  host: process.env.HOST || '127.0.0.1', // 监听地址
+  plugins: [
+    'logger', // 插件名称标识符
+    'plugin-lime-cors',
+    // 也可以用一个对象来表示一个插件
+    {
+      name: 'session',
+      options: {
+        key: 'abc'
+      }
+    }
+  ]
 }
 ```
+
+插件配置在下文 Plugin 一节详细解释
 
 ## Plugin
 
 LIME 通过插件的机制来扩展框架的能力。通过编写插件，可以实现:
 
-* 挂载 global 对象上的辅助函数
-* 在请求生命周期中注入中间件
-* 扩展 MVC 模块中的方法
+* 挂载 global 对象上的辅助函数。例如全局的looger函数: `global.logger()`
+* 在请求生命周期中注入Koa原生的中间件
+* 扩展 MVC 模块中的方法，例如在controller中注入一个 `this.http` 的方法用来发起http请求
 
-如果你熟悉 Koa2, 那么插件的编写简直不要太简单，一个 plugin 插件就是一个 JavaScript 文件，插件的基本框架如下所示:
+为了更你能编写出更优雅的插件，有必要在这里解释下 Lime 初始化时注册插件的过程: 
+
+* Lime 首先会按顺序收集站点 config 配置中指定的 plugins 字段中所有插件
+* 接下来，Lime 会按照插件顺序依次执行各个插件的 global函数，再依次执行所有插件的 install 函数，再依次执行各个插件的 middleware 函数，以此类推到 controller、view、model。
+
+这个机制对编写 middleware 类型的插件会有影响，因为很多中间件对执行顺序有要求，所以你可以通过配置插件的顺序来影响中间件的执行顺序。
+
+下面，我们来编写一个插件，插件的编写简直不要太简单，一个 plugin 插件就是一个 JavaScript 文件，插件的基本框架如下所示:
 
 ```js
-module.exports = {
+module.exports = function(options) {
+  global(g) {
+    // 在这里往 global 对象上挂载方法；因为global函数会在 Lime 生命周期的最开始执行挂载，因此可以确保你在
+  },
   install(app, context) {
-    // 在这里修改 Koa 的 app 和 context 对象
+    // 在这里修改 Koa 的 app 和 context 对象原型
   },
   middleware(app) {
     // 在这里通过 app.use() 注入中间件
@@ -213,27 +243,113 @@ module.exports = {
 }
 ```
 
-这里的中间件 实际上就是 Koa 的中间件，因此我们可以复用 npm 仓库中数以万计的中间件模块。
+这里的middleware字段所注入的中间件 实际上就是 Koa 的原生中间件，因此我们可以复用 npm 仓库中数以万计的中间件模块。
 
 举个栗子，我们以编写一个 logger 插件为例:
 
 ```js
-const logger = require('koa-logger')
-module.exports = {
+const logger = require('koa-logger') // 引入一个 Koa2 原生中间件
+module.exports = function(options) {
   middleware(app) {
     // 在这里使用 Koa 中间件语法把 logger 中间件注入到 lime 框架中
     app.use(logger)
   }
 }
-````
+```
 
-当然，你不需要在项目中编写一个 logger 插件。对于一些 Web 开发的基础能力，LIME 在核心中内置了对应的插件:
+编写完成之后，我们把该文件命名为 `logger.js` 放置到项目根目录的 `plugins` 目录下:
 
-* 模板引擎支持
-* logger 请求响应日志
-* CORS 跨域支持
-* CSRF 防跨站脚本攻击
-* bodyParser 自动根据 contentType 类型解析请求 payload
+```bash
+|- src
+|- plugins
+  |- logger.js
+```
+
+当你的插件比较复杂(有多个文件时)，也可以以目录的形式组织起来，命名为目录放置在 plugins 目录下:
+
+```bash
+|- src
+|- plugins
+  |- logger
+    |- index.js
+    |- dep.js
+```
+
+不过要注意确保 `logger/index.js` 正确导出 lime 所要求的插件对象。
+
+
+插件代码编写完成后，需要配置才能启用。我们去项目根目录的 `config` 目录下，在 `common.js` 公共配置中的 `plugins` 字段加入该插件:
+
+```js
+module.exports = {
+  // plugins是个数组，依次填写插件名称或插件对象
+  plugins: [
+    'logger'
+  ]
+}
+```
+
+注意: 通常情况下，Koa 的一些中间件是有顺序要求的。例如 `koa-logger` 中间件的官方建议:
+
+> Recommended that you .use() this middleware near the top to "wrap" all subsequent middleware.
+
+而 limejs 框架是依靠你在 plugins 字段上配置的前后顺序来依次加载的。因此，在 `common.js` 的配置中你要注意把 logger 插件放置在靠前的位置就好了。
+
+## 使用 npm 模块插件
+
+有些插件是其他人开发好，并且发布到 npm 仓库的，此时你不需要把插件下载到自己项目中。你只需要安装它:
+
+```bash
+npm install @limejs/plugin-cors
+```
+
+然后在插件配置中这样指定上插件的npm包名
+
+```js
+module.exports = {
+  // plugins是个数组，依次填写插件名称或插件对象
+  plugins: [
+    '@limejs/plugin-cors'
+  ]
+}
+```
+
+Lime 注册插件的机制是: 优先寻找本项目 plugins 目录下的同名插件，如果无法找到，则寻找 node_modules 下的同名插件。如果都找不到，则抛出错误。
+
+## 插件配置选项
+
+在 config 中配置插件时，除了使用字符串的形式指定插件名称，还可以使用对象形式。对象形式可以允许你给插件传入 options 选项参数
+
+例如，我们使用 koa-csrf 中间件来编写一个 Lime 插件:
+
+```js
+// 插件名称: lime-csrf
+const CSRF = require('koa-csrf')
+module.exports = function (options){
+  middleware(app) {
+    // 把 options 传入 koa-csrf 构造器
+    app.use(new CSRF(options))
+  }
+}
+```
+
+那么，在使用该插件时，便可以在配置中加入选项配置:
+
+```js
+// common.js
+module.exports = {
+  plugins: [
+    {
+      name: 'lime-csrf',
+      options: {
+        invalidTokenMessage: '非法的token',
+        invalidTokenStatusCode: 403
+      }
+    }
+  ]
+}
+```
+
 
 ## API
 
