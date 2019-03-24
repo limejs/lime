@@ -83,7 +83,7 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
   app.listen()
 ```
 
-控制器代码中的 `index` 函数叫做控制器的 `action`，它本质上是一个完全意义上的 Koa 中间件函数，该函数所传入的 ctx 和 next 参数分别表示 Koa 的 ctx 上下文对象以及下一个中间件函数。更多细节请参考 controller 文档。
+控制器代码中的 `index` 函数叫做控制器的 `action`，它本质上是一个完全意义上的 Koa 中间件函数，该函数所传入的 ctx 和 next 参数分别表示 Koa 的 ctx 上下文对象以及下一个中间件函数。
 
 如果一切顺利，此时打开浏览器访问 <http://localhost:3000> 便可以看到
 
@@ -93,14 +93,16 @@ hello lime! # 看到它 说明已经运行成功
 
 ## Boileplate
 
-尽管创建一个基于 LIME 框架的项目如此简单，但事实上在真实项目开发时你无须自己手工编写项目样板。LIME 官方提供了一坨开箱即用的项目样板供您享用。无论是开发 Rest API 项目，还是基于 Vue.js 的前后端分离项目，LIME 都有一套完备且易用的样板。目前有以下这些样板项目:
+尽管创建一个基于 LIME 框架的项目如此简单，但事实上要开发一个生产环境的站点还需要大量其他的能力，例如使用模板引擎进行视图渲染、使用mongoose进行数据存取、打印日志等等；而LIME内核通过灵活的插件机制让你可以通过插拔插件的方式，应对复杂的Web应用开发。只要你引入对应的LIME插件，LIME就可以变得无所不能。
 
-* [Standard](https://github.com/limejs/lime-template-standard) 这是传统的 MVC 开发模式的项目样板，包含完整的MVC模块，服务端通过模板引擎来渲染视图。`[立刻启动一个传统MVC模式的开发](https://github.com/limejs/lime-template-standard)`
+我们知道选择插件组装应用是一件纠结的事情，所以事实上你无须自己手工创建项目样板。LIME 官方提供了一坨开箱即用的项目样板供您享用。无论是开发 Rest API 项目，还是基于 Vue.js 的前后端分离项目，还是传统的MVC模式的站点，LIME 都有一套完备且易用的样板。目前有以下这些样板项目:
+
+* [MVC](https://github.com/limejs/lime-template-mvc) 这是传统的 MVC 开发模式的项目样板，包含完整的MVC模块，服务端通过模板引擎来渲染视图。`[立刻启动一个传统MVC模式的开发](https://github.com/limejs/lime-template-standard)`
 * [SPA](https://github.com/limejs/lime-template-spa) 基于 Lime+Vue 的前后端分离的项目样板，兼顾单页应用运行和API开发。通过 lime 框架作为中间层来托管 Vue 资源文件，并在 limejs 中通过 webpack-dev-middleware 等插件完成Vue的热加载和热替换。`[立刻启动一个用 Node.js 作为中间层的SPA项目](https://github.com/limejs/lime-template-spa)`
 * [SSR](https://github.com/limejs/lime-template-ssr) Lime+VueSSR 服务端同构渲染的项目样板，适合面向消费者、对首屏加载性能和SEO有一定要求的站点；同样实现了热加载热替换、异常处理、cookie处理、api开发等。`[立刻启动一个用 Node.js 作为中间层的同构VueSSR项目](https://github.com/limejs/lime-template-spa)`
 * [API](https://github.com/limejs/lime-template-ssr) API 项目样板，去除了 model层、view层，增加了services层，适合开发REST API项目。 
 
-以上项目样板，除了 Controller 模块是必选的，Model 和 View 层都不是必须的，因此模型和视图是在通过 [lime-cli](https://github.com/limejs/lime-cli) 初始化时进行交互选择。
+通过 [lime-cli](https://github.com/limejs/lime-cli) 初始化时进行交互选择，您可以轻松创建一个 Web 应用样板来开发复杂应用；当然你也无需担心 cli 工具蒙蔽了你的双眼，事实上它仅仅是帮你引入了合适的 LIME 插件而已，内部发生的一切都很容易理解。了解更多的话你需要去参考对应项目样板的 README，当然继续读完本文档对你上手开发总是有益的。
 
 ## Convention
 
@@ -168,7 +170,24 @@ module.exports = (router) => {
 
 这里 `router` 对象的所有 API 都可以参考 `koa-router` 来使用。
 
-## Config 站点配置
+
+## Router
+
+Lime 的默认使用 src/router.js 进行路由规则配置，Lime 的路由在底层基于 `koa-router` 实现。支持如下实例方法:
+
+```js
+router.get|put|post|patch|delete|del ⇒ Router
+router.routes ⇒ function
+router.use([path], middleware) ⇒ Router
+router.prefix(prefix) ⇒ Router
+router.allowedMethods([options]) ⇒ function
+router.redirect(source, destination, [code]) ⇒ Router
+router.route(name) ⇒ Layer | false
+router.url(name, params, [options]) ⇒ String | Error
+router.param(param, middleware) ⇒ Router
+```
+
+## Config
 
 config目录中存放 LIME 的框架基础配置，其中有四个配置文件，分别影响不同环境的配置:
 
@@ -181,12 +200,16 @@ prod.js 生产环境配置
 
 配置的覆盖规则是这样的: common配置是最底层的配置，如果特定环境里面指定了相同的配置项导致冲突，则优先使用 环境配置文件 里所指定的配置。
 
+LIME中的最终配置不仅会指导 LIME内核的行为，同时你也可以在业务开发过程中通过 ctx.config 获取到这个配置对象，从而可以基于配置进行相关业务逻辑的开发。
+
 可配置的参数字段有:
 
 ```js
 module.exports = {
+  env: process.env.NODE_ENV, // env变量用于指导内核如何输出调试信息。支持 development、test、production三种字符串。建议您在业务开发过程中也使用 ctx.config.env 获取该变量，这样便与内核保持相同的环境判断方法。
   port: process.env.PORT || 3000, // 监听端口。你可以根据自己实际业务逻辑进行修改
   host: process.env.HOST || '127.0.0.1', // 监听地址
+  publicPath: '/', // 站点的域名访问目录，默认是`/`表示站点运行在根path下。如果你要将本项目运行在 `www.baidu.com/bbs` 这样的目录下，你需要将此处配置为 `/bbs`
   plugins: [
     'logger', // 插件名称标识符
     'plugin-lime-cors',
@@ -295,7 +318,7 @@ module.exports = {
 
 而 limejs 框架是依靠你在 plugins 字段上配置的前后顺序来依次加载的。因此，在 `common.js` 的配置中你要注意把 logger 插件放置在靠前的位置就好了。
 
-## 使用 npm 模块插件
+### 使用 npm 模块插件
 
 有些插件是其他人开发好，并且发布到 npm 仓库的，此时你不需要把插件下载到自己项目中。你只需要安装它:
 
@@ -316,7 +339,7 @@ module.exports = {
 
 Lime 注册插件的机制是: 优先寻找本项目 plugins 目录下的同名插件，如果无法找到，则寻找 node_modules 下的同名插件。如果都找不到，则抛出错误。
 
-## 插件配置选项
+### 插件配置选项
 
 在 config 中配置插件时，除了使用字符串的形式指定插件名称，还可以使用对象形式。对象形式可以允许你给插件传入 options 选项参数
 
@@ -411,9 +434,20 @@ http.createServer(app.callback()).listen(8080)
 
 欢迎帮助 LIME 进化和修复 issue，您可遵循 [CONTRIBUTE](./CONTRIBUTE.md) 规范来参与开发。
 
-这是我们的 TODO 列表:
+todo任务分为 内核、工具、生态、插件，这是我们的 TODO 列表:
 
-* 参考 https://github.com/vuejs/vue-cli/blob/v2/lib/logger.js 实现logger
+* [内核] 插件支持配置和options
+* [内核] 优化启动方式，启动的port和host改成从配置文件获取，减轻启动时代码复杂度
+* [内核] 路由、插件解析报错的处理
+* [内核] 异常处理优化
+* [内核] 内置插件移除 转为limejs/plugin-x 的npm包
+* [生态] 更多脚手架模板完善
+* [内核] view、model、service层完善
+* [内核] 支持 global 挂载
+* [工具] PM2 和 nginx 配置
+* [内核] host,port,publicPath，env 配置支持
+* [工具] docker支持
+* [插件] redis，mongoose插件
 
 ## CHANGELOG
 
