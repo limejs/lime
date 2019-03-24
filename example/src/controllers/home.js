@@ -1,6 +1,8 @@
 const HomeController = {
   async index(ctx, next) {
-    ctx.body = 'hello lime!'
+    await this.render('home', {
+      title: 'limejs'
+    })
   }
 }
 

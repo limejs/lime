@@ -2,14 +2,9 @@
 
 const Lime = require('../index.js')
 
-const app = new Lime({
-  root: __dirname
+const app = new Lime()
+
+app.listen().then(server => {
+  // you can logger the server info here
+  // eg. logger.ok('*app*', 'server.address', server.address())
 })
-
-async function start() {
-  const server = await app.listen()
-  logger.info('server.address', server.address())
-}
-
-
-start()

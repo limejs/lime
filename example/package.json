@@ -1,0 +1,13 @@
+{
+  "name": "example",
+  "version": "0.0.1",
+  "description": "## start",
+  "main": "app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development node ./app.js",
+    "build": "NODE_ENV=production node ./app.js"
+  },
+  "keywords": [],
+  "author": "sheldoncui <websheldoncui@gmail.com> (https://www.cuiyongjian.com)",
+  "license": "MIT"
+}
