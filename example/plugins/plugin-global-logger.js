@@ -1,4 +1,6 @@
-module.exports = function (options) {
+const chalk = require('chalk')
+
+module.exports = function(options) {
   return {
     global() {
       global.logger = makeLogger()
@@ -6,15 +8,12 @@ module.exports = function (options) {
   }
 }
 
-module.exports.logger = makeLogger()
 
 function makeLogger() {
-  const chalk = require('chalk')
-
   const ok = (...msg) => {
-    console.info(chalk.green(`[INFO ]`), '[', ...msg, ']')
+    console.log(chalk.green(`[ OK ]`), '[', ...msg, ']')
   }
-
+  
   return {
     ok(...msg) {
       ok(...msg)
@@ -23,16 +22,14 @@ function makeLogger() {
       ok(...msg)
     },
     info(...msg) {
-      console.info(chalk.cyan(`[INFO ]`), '[', ...msg, ']')
-    },
-    debug(...msg) {
-      console.debug(chalk.cyan(`[DEBUG]`), '[', ...msg, ']')
+      console.log(chalk.cyan(`[INFO]`), '[', ...msg, ']')
     },
     warn(...msg) {
-      console.warn(chalk.yellow(`[WARN ]`), '[', ...msg, ']')
+      console.log(chalk.yellow(`[WARN]`), '[', ...msg, ']')
     },
     error(...msg) {
-      console.error(chalk.red(`[ERROR]`), '[', ...msg, ']')
+      console.log(chalk.red(`[ERROR]`), '[', ...msg, ']')
     }
   }
 }
+

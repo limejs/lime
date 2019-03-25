@@ -1,7 +1,8 @@
 const HomeController = {
   async index(ctx, next) {
-    await this.render('home', {
-      title: 'limejs'
+    console.log(this.service.invoke('weather', {day: 123}))
+    await this.view.render('home', {
+      title: 'LIME.JS'
     })
   }
 }
