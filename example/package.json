@@ -4,10 +4,14 @@
   "description": "## start",
   "main": "app.js",
   "scripts": {
-    "dev": "NODE_ENV=development node ./app.js",
-    "build": "NODE_ENV=production node ./app.js"
+    "dev": "cross-env NODE_ENV=development node ./app.js",
+    "build": "cross-env NODE_ENV=production node ./app.js"
   },
   "keywords": [],
   "author": "sheldoncui <websheldoncui@gmail.com> (https://www.cuiyongjian.com)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cross-env": "^5.2.0",
+    "koa-static": "^5.0.0"
+  }
 }
