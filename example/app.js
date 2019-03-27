@@ -2,7 +2,9 @@
 
 const Lime = require('../index.js')
 
-const app = new Lime()
+const app = new Lime({
+  root: __dirname
+})
 
 app.listen().then(server => {
   // you can logger the server info here

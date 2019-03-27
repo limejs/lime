@@ -399,7 +399,8 @@ Lime 的实例在 plugin 中经常碰到，lime 实例有以下属性和方法
 
 * [prop] options 初始化 Lime 所用的选项配置
 * [prop] config 基于站点配置文件site.js的站点信息
-* [method] use 注入一个中间件处理函数. 该方法代理自 Koa
+* [method] global 注入一个中间件处理函数. 该方法代理自 Koa
+*
 
 ### [Global] global
 
@@ -448,6 +449,7 @@ todo任务分为 内核、工具、生态、插件，这是我们的 TODO 列表
 * [内核] host,port,publicPath，env 配置支持
 * [工具] docker支持
 * [插件] redis，mongoose插件
+* [TODO] 利用app.onerror 实现优雅的让用户定制500 404页面。
 
 ## CHANGELOG
 

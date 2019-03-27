@@ -3,6 +3,6 @@
 */
 
 module.exports = (router) => {
-  router.get('/api/test', 'api@test')
-  router.get('/', 'home@index')
+  router.get('/user', 'home@user')
+  router.get('/', 'home@weather')
 }

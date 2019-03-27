@@ -18,7 +18,7 @@ const UserModel = {
     ],
     // 短名称
     getShortName() {
-        return this.name.slice(0, 5)
+        return this.username.slice(0, 5)
     }
 }
 
