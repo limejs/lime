@@ -449,7 +449,8 @@ todo任务分为 内核、工具、生态、插件，这是我们的 TODO 列表
 * [内核] host,port,publicPath，env 配置支持
 * [工具] docker支持
 * [插件] redis，mongoose插件
-* [TODO] 利用app.onerror 实现优雅的让用户定制500 404页面。
+* [内核] 利用app.onerror 实现优雅的让用户定制500 404页面。
+* [内核] 加载插件时，对于需要绑定this的函数，检测其是否使用了箭头函数(无法绑定this)，有的话则提醒并退出
 
 ## CHANGELOG
 
