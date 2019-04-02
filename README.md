@@ -2,7 +2,7 @@
 
 # LIME
 
-lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MVC 范式，致力于提供简单易用的 Web 应用开发体验。
+lime.js 是一个轻量的基于 Koa2 的 Node.js Web开发框架，它基于经典的 MVC 范式，致力于提供简单易用的 Web 应用开发体验。
 
 ## Feature
 
@@ -10,13 +10,13 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
 
   lime.js 可以无缝衔接 Koa 和 npm 的现有生态；在灵活与标准之间，lime 以 `中庸` 的态度做出权衡，并不断面向用户体验和未来而演进
 
+* 经典 MVC 范式，约定大于配置
+
+  采用最经典的分层架构、约定大于配置的设计理念
+
 * 可扩展性强， 功能完备
 
   尽管保持了小而精致的内核，但通过插件机制和社区生态打造的脚手架， lime 完全可以胜任复杂项目的开发
-
-* 经典 MVC 范式， 约定大于配置
-
-  采用最经典的分层架构、约定大于配置的设计理念。在 MVC 的基类设计上，用 proxy 代替继承以降低开销
 
 * 面向未来的架构和工具链
 
@@ -56,6 +56,7 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
     |-controller
       |-home.js # 一个叫做 Home首页 的 控制器
     |-view
+      |-home.hbs
     |-model
     |-router.js # 站点路由
   |-app.js # 站点应用入口
@@ -72,8 +73,8 @@ lime.js 是一个基于 Koa2 的 Node.js Web开发框架，它基于经典的 MV
 
   // home.js 中定义index首页请求的逻辑
   module.exports = {
-    async index(ctx, next) {
-      ctx.body = 'hello lime'
+    async index() {
+      this.ctx.body = 'hello lime' // 通过 this.ctx 可以访问到 Koa 上下文对象
     }
   }
 
