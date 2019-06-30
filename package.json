@@ -1,6 +1,6 @@
 {
   "name": "@limejs/core",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "lime framework",
   "main": "index.js",
   "scripts": {
