@@ -1,5 +1,5 @@
 {
-  "name": "@limejs/core",
+  "name": "limejs",
   "version": "1.0.0-next",
   "description": "lime framework",
   "main": "index.js",
