@@ -8,7 +8,7 @@ module.exports = function(config) {
       }
     },
     'plugin-static',
-    'plugin-render',
+    'plugin-view',
     'plugin-service',
     'plugin-model',
     {
