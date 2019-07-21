@@ -1,4 +1,4 @@
-module.exports = function(config) {
+module.exports = function (config) {
   return [
     'plugin-global-logger',
     {
@@ -14,8 +14,8 @@ module.exports = function(config) {
     {
       name: 'plugin-redis',
       options: {
-        
+
       }
     }
-  ];
-};
+  ]
+}

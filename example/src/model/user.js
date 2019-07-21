@@ -6,20 +6,20 @@
  */
 
 const UserModel = {
-    username: String,
-    password: String,
-    phone: String,
-    salesNotes: [
-        {
-            date: Date,
-            salespersonId: Number,
-            notes: String
-        }
-    ],
-    // 短名称
-    getShortName() {
-        return this.username.slice(0, 5)
+  username: String,
+  password: String,
+  phone: String,
+  salesNotes: [
+    {
+      date: Date,
+      salespersonId: Number,
+      notes: String
     }
+  ],
+  // 短名称
+  getShortName () {
+    return this.username.slice(0, 5)
+  }
 }
 
 module.exports = UserModel

@@ -1,12 +1,11 @@
 const HomeController = {
-  async service() {
+  async service () {
     logger.info('城市', this.ctx.query.city)
-    const weather = await this.service('weather')[this.ctx.query.city||'beijing']({city: '北京'})
-    ctx.body = weather
-    
+    const weather = await this.service('weather')[this.ctx.query.city || 'beijing']({ city: '北京' })
+    this.ctx.body = weather
   },
 
-  async index() {
+  async index () {
     await this.render('home', {
       title: 'LIME.JS',
       weather: {

@@ -1,5 +1,5 @@
 module.exports = {
-  apps : [{
+  apps: [{
     name: 'lime-example',
     script: 'app.js',
     cwd: __dirname,
@@ -22,14 +22,14 @@ module.exports = {
     }
   }],
 
-  deploy : {
-    production : {
-      user : 'node',
-      host : 'cvm.cuiyongjian.com',
-      ref  : 'origin/demo',
-      repo : 'git@github.com:repo.git',
-      path : '/var/www/production',
-      'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env production'
+  deploy: {
+    production: {
+      user: 'node',
+      host: 'cvm.cuiyongjian.com',
+      ref: 'origin/demo',
+      repo: 'git@github.com:repo.git',
+      path: '/var/www/production',
+      'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production'
     }
   }
-};
+}

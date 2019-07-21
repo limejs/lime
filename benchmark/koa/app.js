@@ -3,10 +3,10 @@ const koaViews = require('koa-views')
 const path = require('path')
 
 const app = new Koa()
-app.use(koaViews(path.join(__dirname, "views"), {
-  'extension': 'hbs',
+app.use(koaViews(path.join(__dirname, 'views'), {
+  extension: 'hbs',
   map: {
-    'hbs': 'handlebars',
+    hbs: 'handlebars'
   }
 }))
 
@@ -20,4 +20,3 @@ app.use(async ctx => {
 })
 
 app.listen('3009')
-

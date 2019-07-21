@@ -1,5 +1,5 @@
 const ApiController = {
-  async test(ctx, next) {
+  async test (ctx, next) {
     ctx.body = {
       name: 'lime',
       isCool: true
