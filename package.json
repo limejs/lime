@@ -7,7 +7,10 @@
     "start": "nodemon ./example/app.js",
     "debug": "DEBUG=lime:* nodemon --inspect-brk=9229 ./example/app.js",
     "lint": "eslint --ext js --fix test lib benchmark example",
-    "test": "mocha --require @babel/register test/**/*.spec.js"
+    "test": "mocha --require @babel/register test/**/*.spec.js",
+    "lint-ci": "eslint --ext js test lib benchmark example",
+    "test-ci": "npm run test",
+    "gopkg": "echo \"test publish npm package\""
   },
   "husky": {
     "hooks": {

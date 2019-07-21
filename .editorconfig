@@ -17,7 +17,7 @@ indent_style = space
 indent_size = 2
 
 # 2 space normal indentation
-[*.{html,js,json,xml,vue}]
+[*.{html,js,json,xml,vue,yml}]
 indent_style = space
 indent_size = 2
 

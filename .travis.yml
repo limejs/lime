@@ -1,10 +1,24 @@
 language: node_js
 node_js:
-  - "node"
+  - "8"
+  - "9"
+  - "10"
+  - "12"
 os: linux
+env:
+  - NODE_ENV=production
 cache:
   npm: true
   yarn: true
 branches:
   only:
     - master
+install: npm install
+script:
+  - npm run lint
+  - npm run test
+jobs:
+  include:
+    - stage: npm release
+      node_js: "nbode"
+      script: npm run gopkg
