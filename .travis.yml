@@ -13,13 +13,13 @@ branches:
     - master
 install: npm install
 script:
-  - npm run test
+  - npm run test-ci
 jobs:
   include:
-    - stage: eslint
+    - stage: Lint
       node_js: "node"
-      script: npm run lint
-    - stage: npm release
+      script: npm run lint-ci
+    - stage: Release
       node_js: "node"
       env:
         - NODE_ENV=production
