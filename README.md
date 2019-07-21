@@ -1,4 +1,6 @@
-[![npm version](https://img.shields.io/npm/v/@limejs/core.svg?style=flat-square)](https://www.npmjs.com/package/@limejs/core) [![downloads](https://img.shields.io/npm/dw/tencent-cos-webpack-plugin.svg?style=flat-square)](https://www.npmjs.com/package/@limejs/core) [![Build Status](https://img.shields.io/travis/limejs/lime.svg?style=flat-square)](https://travis-ci.com/limejs/lime) [![License](https://img.shields.io/npm/l/tencent-cos-webpack-plugin.svg?style=flat-square)](./License)
+[![npm version](https://img.shields.io/npm/v/@limejs/core.svg?style=flat-square)](https://www.npmjs.com/package/@limejs/core) [![downloads](https://img.shields.io/npm/dw/@limejs/core.svg?style=flat-square)](https://www.npmjs.com/package/@limejs/core) [![Build Status](https://img.shields.io/travis/limejs/lime.svg?style=flat-square)](https://travis-ci.com/limejs/lime) [![License](https://img.shields.io/npm/l/@limejs/core.svg?style=flat-square)](./License)
+
+
 
 # LIME
 
