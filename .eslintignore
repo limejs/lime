@@ -1,0 +1,4 @@
+# ignore all subdir node_modules, because of:
+# Important: Note that node_modules directories in, for example, a packages directory in a mono repo are not ignored by default and need to be added to .eslintignore explicitly
+# by: `https://eslint.cn/docs/user-guide/configuring#eslintignore`
+node_modules

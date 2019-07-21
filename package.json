@@ -1,12 +1,25 @@
 {
   "name": "limejs",
-  "version": "1.0.0-next",
+  "version": "0.4.0",
   "description": "lime framework",
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./example/app.js",
-    "debug": "DEBUG=lime:* nodemon --inspect-brk=9229 ./example/app.js ",
-    "test": "mocha --require @babel/register --require @babel/polyfill test/**/*.js"
+    "debug": "DEBUG=lime:* nodemon --inspect-brk=9229 ./example/app.js",
+    "lint": "eslint --ext js --fix test lib benchmark example",
+    "test": "mocha --require @babel/register test/**/*.spec.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
@@ -23,27 +36,27 @@
     "example"
   ],
   "dependencies": {
-    "@koa/cors": "^2.2.2",
     "debug": "^4.1.0",
-    "handlebars": "^4.0.12",
     "koa": "^2.6.1",
-    "koa-bodyparser": "^4.2.1",
-    "koa-compress": "^3.0.0",
-    "koa-csrf": "^3.0.6",
-    "koa-logger": "^3.2.0",
-    "koa-router": "^7.4.0",
-    "koa-session": "^5.10.0",
-    "koa-views": "^6.1.4",
-    "koa-views-render": "0.0.1",
-    "mongoose": "^5.3.11"
+    "koa-logger": "^3.2.1",
+    "koa-router": "^7.4.0"
   },
   "author": "sheldoncui <websheldoncui@gmail.com> (https://www.cuiyongjian.com)",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.3.3",
-    "@babel/polyfill": "^7.2.5",
     "@babel/register": "^7.0.0",
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
     "chai": "^4.2.0",
-    "mocha": "^6.0.1"
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "husky": "^3.0.1",
+    "lint-staged": "^9.2.0",
+    "mocha": "^6.2.0"
   }
 }
