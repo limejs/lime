@@ -9,6 +9,7 @@ module.exports = {
       2,
       'always',
       [
+        'publish', // 发布npm包
         'build', // 构建
         'ci', // ci
         'chore', // Other changes that don't modify src or test files. 改变构建流程、或者增加依赖库、工具等
